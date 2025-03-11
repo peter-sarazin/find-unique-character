@@ -14,6 +14,13 @@ class UniqueCharacterTest {
    }
 
     @Test
+    void findFirstUniqueCharacterInXAABBCC() {
+
+        Character firstUniqueCharacter = null;
+        firstUniqueCharacter = UniqueCharacter.findFirstUniqueCharacter( "XAABBCC" );
+        Assertions.assertEquals('X', firstUniqueCharacter);
+    }
+    @Test
     void findFirstUniqueCharacterInAABBCCX() {
 
         Character firstUniqueCharacter = null;
