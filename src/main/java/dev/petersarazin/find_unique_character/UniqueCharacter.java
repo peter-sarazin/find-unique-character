@@ -35,8 +35,32 @@ public class UniqueCharacter {
         }
 
         Character firstUniqueCharacter = null;
-
         char[] charArray = inputString.toCharArray();
+        List<Character> sortedList = convertStringToSortedListOfCharacters( inputString );
+
+        // for each character from the original ordered string
+        for ( int i = 0; i < charArray.length; i++ ) {
+
+            // look for first position of each character in sorted array
+            int pos = sortedList.indexOf(charArray[i]);
+
+            // if the first occurrence of this character in the last position of the sorted list, or if the character in
+            // the next position of the list is not the same character, then this character is unique.
+            if ( ( ( charArray.length - 1 ) == pos ) || !( sortedList.get(pos + 1) == charArray[i] ) ) {
+                firstUniqueCharacter = charArray[i];
+                break;
+            }
+        }
+
+        if( firstUniqueCharacter == null )
+        {
+            throw new NoUniqueCharactersException( "No unique characters in inputString: " + inputString );
+        }
+
+        return firstUniqueCharacter;
+    }
+
+    private static List<Character> convertStringToSortedListOfCharacters( String inputString ) {
         char[] sortedArray = inputString.toCharArray();
         Arrays.sort( sortedArray );
 
@@ -46,30 +70,6 @@ public class UniqueCharacter {
             sortedList.add(c);
         }
 
-        Character lastChar = null;
-        boolean firstOccurrence = false;
-
-        for ( int i = 0; i < charArray.length; i++ ) {
-
-            firstOccurrence = ( ( lastChar == null ) || (lastChar != charArray[i] ) );
-
-            // look for first position of each character in sorted array
-            int pos = sortedList.indexOf(charArray[i]);
-
-            // is next character different from current and is this the first occurrence?
-            if ( firstOccurrence && ( charArray.length - 1 == pos ) || !(sortedList.get(pos + 1) == charArray[i]) ) {
-                firstUniqueCharacter = charArray[i];
-                break;
-            }
-
-            lastChar = charArray[i];
-        }
-
-        if( firstUniqueCharacter == null )
-        {
-            throw new NoUniqueCharactersException( "No unique characters in inputString: " + inputString );
-        }
-
-        return firstUniqueCharacter;
+        return sortedList;
     }
 }

@@ -15,6 +15,3 @@ look for the first occurrence of the character in the sorted array.
 if we are at the last character or the character in the next element is not the same as the current character then it is 
 unique.
 
-## Building the code and running the tests
-mvn clean test
-
